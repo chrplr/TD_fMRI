@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>fMRI Data</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="file:///home/cp983411/anaconda3/lib/python3.8/site-packages/landslide/themes/default/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="file:///home/cp983411/anaconda3/lib/python3.8/site-packages/landslide/themes/default/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="file:///home/cp983411/anaconda3/lib/python3.8/site-packages/landslide/themes/default/js/slides.js"></script>
+    
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-1">
+          <div class="inner">
+            
+            <header><h1>fMRI Data</h1></header>
+            
+            
+            <section><p>fMRI data consist of <strong>time-series</strong> (series of samples) in thousands voxels.</p>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/fmri_data.jpg" /></p>
+<ul>
+<li>
+<p>The spatial resolution is the size of voxels in x, y, z. For example 2x2x2mm cubes.</p>
+</li>
+<li>
+<p>The sampling time (TR = Time of Repetition) is the duration between the onsets of successive scans.</p>
+</li>
+</ul>
+<p>Note: This can be represented as a 4D matrix, with coordinates x, y, z and t</p>
+<p>Stored either as a series of 3D images (1 file per time point), or a single 4D file.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-2">
+          <div class="inner">
+            
+            <header><h1>Searching for voxels that respond to some stimulation, action, ...</h1></header>
+            
+            
+            <section><p>Given the history of stimulation, actions, ...</p>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/stimulation-time-diagram.png" /></p>
+<p>One can construct <strong>predictors</strong> of the BOLD response by convoluting the stimulation variables with the <em>impulse Haemodynamics Response Function</em>.</p>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/spm_iHRF_sm.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-3">
+          <div class="inner">
+            
+            <header><h1>Example of Periodic auditory stimulation.</h1></header>
+            
+            
+            <section><ul>
+<li>Red curve (model)=Predictor. </li>
+<li>Blue curve  = time course in a given voxel of the auditory cortex</li>
+</ul>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/time-course-and-model-fit-in-a-voxel.png" /></p>
+<p>One can compute the <em>correlation</em> between the model and the data. </p>
+<p>One can do this at every brain voxel and produce a correlation map.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-4">
+          <div class="inner">
+            
+            <header><h1>correlation maps</h1></header>
+            
+            
+            <section><p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/correlation_maps_sm.png" /></p>
+<p>Correlations are numbers within [-1; +1]</p>
+<p>If an observed correlation is "large enough", it is unlikely to be due to chance, and more likely to reflect a real effect.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-5">
+          <div class="inner">
+            
+            <header><h1>Statistical testing</h1></header>
+            
+            
+            <section><p>Let's suppose that all the subjects have a positive correlation in a given voxel, if there are enough subjects, this is convincing evidence that the effect is no due to chance (think about coin dropping).</p>
+<p><em>p-value</em> = Probability the effect is equal of larger than the average observed effect (here the average correlation) under the Null hypothesis of pure noise.</p>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/student.png" /></p>
+<p>when the p-value &lt; alpha-threshold, we deem the effect "statistically significant".</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-6">
+          <div class="inner">
+            
+            <header><h1>t-values or z-values maps</h1></header>
+            
+            
+            <section><ul>
+<li>A student t-test produces a t-value</li>
+<li>A normal test produces a z-value</li>
+</ul>
+<p>There are one-to-one relations t-value&lt;=&gt; p-value &lt;=&gt; z value</p>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/thresmap.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-7">
+          <div class="inner">
+            
+            <header><h1>individual vs. group maps</h1></header>
+            
+            
+            <section><p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/indivgroup.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-8">
+          <div class="inner">
+            
+            <header><h1>Beyond correlation: multiple regression</h1></header>
+            
+            
+            <section><p>Correlation is limited to one variable, but we often have several predictors:</p>
+<ul>
+<li>predictors of interest, linked to the experimental design</li>
+<li>counfond variables (of no interest) </li>
+</ul>
+<p><strong>Regression</strong>: Fitting a linear model, i.e.</p>
+<p>Given data y, and predictors arranged in a X matrix, find β values such that minimizes ‖y - X.β‖.</p>
+<p>=&gt; This yildes ine parameter for each predictor (amplitude of the response to the predictor when the other are kept constant), and its significance.</p>
+<p>See <a href="https://online.stat.psu.edu/stat462/node/132/">https://online.stat.psu.edu/stat462/node/132/</a></p>
+<p><strong>Contrasts</strong>: are used to compare parameters (is the response to one condition stronger than another?)</p>
+<p>See Chapter 8 of <a href="https://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2/">https://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-9">
+          <div class="inner">
+            
+            
+            <section><p>Difference between strength of response and fit (or significance)</p>
+<p><img alt="" src="file:///home/cp983411/1_teaching/cours/BCN2021/corr_small.png" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: statistical_analyses.md -->
+      <div class="slide-wrapper">
+        <div class="slide slide-10">
+          <div class="inner">
+            
+            <header><h1>Univariate analysis of fMRI images</h1></header>
+            
+            
+            <section><ol>
+<li>Describe the paradigm in terms of events grouped by type, occurring at certain times and having specific durations.</li>
+<li>Create predictors for each type of event, typically using a convolution by the haemodynamic response.</li>
+<li>Assemble these predictors in a design matrix, providing a linear model.</li>
+<li>Estimate the parameters of the model, i.e., the weights associated with each predictor at each voxel, using linear regression.</li>
+<li>Display the coefficients or their linear combinations (contrasts), and/or their statistical significance. Optionnaly correcting for the issue of multiple comparisons.</li>
+</ol>
+<p>see <a href="http://nilearn.github.io/glm/glm_intro.html#fmri-statistical-analysis">http://nilearn.github.io/glm/glm_intro.html#fmri-statistical-analysis</a> from <a href="http://nilearn.github.io/glm/index.html">http://nilearn.github.io/glm/index.html</a></p>
+<p>Hands-on exercices at <a href="http://nilearn.github.io/auto_examples/index.html">http://nilearn.github.io/auto_examples/index.html</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="statistical_analyses.md">statistical_analyses.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source:  -->
+      <div class="slide-wrapper">
+        <div class="slide slide-">
+          <div class="inner">
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="page_number">
+              /10
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">fMRI Data</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Searching for voxels that respond to some stimulation, action, ...</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Example of Periodic auditory stimulation.</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">correlation maps</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Statistical testing</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">t-values or z-values maps</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">individual vs. group maps</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Beyond correlation: multiple regression</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">-</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Univariate analysis of fMRI images</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
